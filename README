@@ -20,6 +20,7 @@ class Foo {
         logger = new Logger();
     }
     void doSomethig() {
+        /* does something */
         this->logger->log("done");
     }
 }
@@ -48,6 +49,7 @@ class Foo {
         logger = l;
     }
     void doSomethig() {
+        /* does something */
         this->logger->log("done");
     }
 }
@@ -71,6 +73,7 @@ class Foo {
         logger = ioc::Container::Resolve<ILogger>();
     }
     void doSomethig() {
+        /* does something */
         this->logger->log("done");
     }
 }
