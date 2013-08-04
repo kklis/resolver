@@ -1,0 +1,84 @@
+1. DESCRIPTION
+
+This is a simple dependency container for C++, which allows you to use the inversion of control (IoC) pattern in your applications.
+
+2. INSTALLATION
+
+The container requires no installation, just include the "container.hpp" file in your source code.
+
+There is also an example test application container_test.cpp which you can build with "make".
+
+3. USAGE
+
+Inversion of control (IoC) is about decoupling the class from its dependencies. Suppose you have a class that does some logging:
+
+class Foo {
+    private:
+    Logger *logger;
+    public:
+    Foo() {
+        logger = new Logger();
+    }
+    void doSomethig() {
+        this->logger->log("done");
+    }
+}
+
+This class is strongly tied to concrete logger instance, which means that:
+1) it and will require refactoring in case of using a different logger,
+2) writng unit tests for this class will be very hard, if not impossible.
+
+Much more sane implementation would look as follows:
+
+class ILogger() {
+    virtual void log(std::string s) = 0;
+};
+
+class Logger : public ILogger() {
+    void log(std::string s) {
+        /* implementation goes here */
+    }
+};
+
+class Foo {
+    private:
+    ILogger *logger;
+    public:
+    Foo(ILogger *l) {
+        logger = l;
+    }
+    void doSomethig() {
+        this->logger->log("done");
+    }
+}
+
+Now you can inject (hence term "dependency injection" used together with IoC) a different logger instances, depending on your needs: FileLogger, NetworkLogger, etc.
+Also, writing unit tests is possible, because you can use a class like FakeLogger which has empty log(std::string) method, or does some assertions inside.
+
+If you have a lot of classes, it is tedious to instantiate all of them with proper dependencies:
+
+Foo *foo1 = new Foo(new FileLogger());
+...
+Foo *foo2 = new Foo(new FileLogger());
+
+So you can use a container to keep the dependencies:
+
+class Foo {
+    private:
+    ILogger *logger;
+    public:
+    Foo() {
+        logger = ioc::Container::Resolve<ILogger>();
+    }
+    void doSomethig() {
+        this->logger->log("done");
+    }
+}
+
+ioc::Container::Register<ILogger>(new FileLogger());
+...
+Foo *foo1 = new Foo();
+...
+Foo *foo2 = new Foo();
+
+Check out the container_test.cpp for a complete example implementation.
