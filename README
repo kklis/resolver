@@ -52,16 +52,16 @@ class Foo {
     }
 }
 
-Now you can inject (hence term "dependency injection" used together with IoC) a different logger instances, depending on your needs: FileLogger, NetworkLogger, etc.
-Also, writing unit tests is possible, because you can use a class like FakeLogger which has empty log(std::string) method, or does some assertions inside.
+Now, depending on your needs, you can create and inject into class Foo (hence term "dependency injection" used together with IoC) different logger instances, inheriting from ILogger: FileLogger, NetworkLogger, etc.
+Also, writing unit tests is possible, because you can create another class, like FakeLogger, which has an empty log(std::string) method or does some assertions inside.
 
-If you have a lot of classes, it is tedious to instantiate all of them with proper dependencies:
+However, if you have a lot of classes, it is tedious to instantiate all of them with proper dependencies:
 
 Foo *foo1 = new Foo(new FileLogger());
 ...
 Foo *foo2 = new Foo(new FileLogger());
 
-So you can use a container to keep the dependencies:
+So you can use a container to keep them for you:
 
 class Foo {
     private:
@@ -75,8 +75,9 @@ class Foo {
     }
 }
 
+/* Bootstrap code */
 ioc::Container::Register<ILogger>(new FileLogger());
-...
+/* Application code */
 Foo *foo1 = new Foo();
 ...
 Foo *foo2 = new Foo();
