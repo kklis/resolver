@@ -23,28 +23,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _IOC_CONTAINER_HPP
-#define _IOC_CONTAINER_HPP
+#include "container.hpp"
 
-#include <map>
-#include <string>
-#include <typeinfo>
+#ifdef _IOC_CONTAINER_HPP
 
-namespace ioc {
-    class Container {
-    public:
-        static std::map<std::string, void *> registeredTypes;
-        template<class T> static void Register(const T*);
-        template<class T> static T* Resolve();
-    };
-}
-
-template<class T> void ioc::Container::Register(const T* object) {
-    registeredTypes[typeid(T).name()] = (void *)object;
-}
-
-template<class T> T* ioc::Container::Resolve() {
-    return (T *)registeredTypes[typeid(T).name()];
-}
+std::map<std::string, void *> ioc::Container::registeredTypes;
 
 #endif  //_IOC_CONTAINER_HPP

@@ -7,29 +7,28 @@ using namespace ioc;
 using namespace std;
 
 class IFooBar {
-    public:
+public:
     virtual string getName() = 0;
 };
 
 class Foo : public IFooBar {
-    public:
+public:
     string getName() {
         return "Foo";
     }
 };
 
 class Bar : public IFooBar {
-    public:
+public:
     string getName() {
         return "Bar";
     }
 };
 
-class Test
-{
-    private:
+class Test {
+private:
     IFooBar *foobar;
-    public:
+public:
     Test() {
         Init(Container::Resolve<IFooBar>());
     }
