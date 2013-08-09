@@ -1,15 +1,15 @@
-## DESCRIPTION
+### DESCRIPTION
 
 This is a simple dependency container for C++, which allows you to use the inversion of control (IoC) pattern in your applications.
-The project started as a [blog entry](http://weblambdazero.blogspot.com/2013/08/dependency-injection-in-c.html)
+The project started as a [blog entry](http://weblambdazero.blogspot.com/2013/08/dependency-injection-in-c.html).
 
-## INSTALLATION
+### INSTALLATION
 
 The container requires no installation, just include the "container.hpp" file in your source code.
 
 There is also an example test application container_test.cpp which you can build with "make".
 
-## USAGE
+### USAGE
 
 Inversion of control (IoC) is about decoupling the class from its dependencies. Suppose you have a class that does some logging:
 
