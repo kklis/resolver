@@ -8,6 +8,7 @@ using namespace std;
 
 class IFooBar {
 public:
+    virtual ~IFooBar() {};
     virtual string getName() = 0;
 };
 
