@@ -13,9 +13,9 @@ There is also an example test application container_test.cpp which you can build
 Inversion of control (IoC) is about decoupling the class from its dependencies. Suppose you have a class that does some logging:
 
 class Foo {
-    private:
+private:
     Logger *logger;
-    public:
+public:
     Foo() {
         logger = new Logger();
     }
@@ -42,9 +42,9 @@ class Logger : public ILogger() {
 };
 
 class Foo {
-    private:
+private:
     ILogger *logger;
-    public:
+public:
     Foo(ILogger *l) {
         logger = l;
     }
@@ -66,9 +66,9 @@ Foo *foo2 = new Foo(new FileLogger());
 So you can use a container to keep them for you:
 
 class Foo {
-    private:
+private:
     ILogger *logger;
-    public:
+public:
     Foo() {
         logger = ioc::Container::Resolve<ILogger>();
     }
