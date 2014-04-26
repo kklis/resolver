@@ -73,19 +73,6 @@ Foo *foo2 = new Foo(new FileLogger());
 So you can use a container to keep them for you:
 
 ```cpp
-class Foo {
-private:
-    ILogger *logger;
-public:
-    Foo(ILogger *l) {
-        logger = l;
-    }
-    void doSomethig() {
-        /* does something */
-        this->logger->log("done");
-    }
-}
-
 /* Bootstrap code */
 ioc::Container::Register<ILogger>(new FileLogger());
 /* Application code */
