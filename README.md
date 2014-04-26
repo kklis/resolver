@@ -81,7 +81,7 @@ Foo *foo1 = new Foo(ioc::Container::Resolve<ILogger>());
 Foo *foo2 = new Foo(ioc::Container::Resolve<ILogger>());
 ```
 
-You can also use the container as a service locator, which means that the class uses the container instance to retrieve the dependencies itself:
+You can also use the container as a service locator, which means that a class uses a container instance to retrieve the dependencies itself:
 
 ```cpp
 class Foo {
