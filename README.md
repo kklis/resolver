@@ -77,6 +77,30 @@ class Foo {
 private:
     ILogger *logger;
 public:
+    Foo(ILogger *l) {
+        logger = l;
+    }
+    void doSomethig() {
+        /* does something */
+        this->logger->log("done");
+    }
+}
+
+/* Bootstrap code */
+ioc::Container::Register<ILogger>(new FileLogger());
+/* Application code */
+Foo *foo1 = new Foo(ioc::Container::Resolve<ILogger>());
+...
+Foo *foo2 = new Foo(ioc::Container::Resolve<ILogger>());
+```
+
+You can also use the container as a service locator, which means that the class uses the container instance to retrieve the dependencies itself:
+
+```cpp
+class Foo {
+private:
+    ILogger *logger;
+public:
     Foo() {
         logger = ioc::Container::Resolve<ILogger>();
     }
