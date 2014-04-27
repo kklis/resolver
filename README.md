@@ -1,13 +1,13 @@
 ### DESCRIPTION
 
-This is a simple dependency container for C++, which allows you to use the inversion of control (IoC) pattern in your applications.
+This is a simple dependency resolver for C++, which allows you to use the inversion of control (IoC) pattern in your applications.
 The project started as a [blog entry](http://weblambdazero.blogspot.com/2013/08/dependency-injection-in-c.html).
 
 ### INSTALLATION
 
-The container requires no installation, just include the "container.hpp" file in your source code.
+The resolver requires no installation, just include the "resolver.hpp" file in your source code.
 
-There is also an example test application container_test.cpp which you can build with "make".
+There is also an example test application resolver_test.cpp which you can run with "make test".
 
 ### USAGE
 
@@ -70,18 +70,18 @@ Foo *foo1 = new Foo(new FileLogger());
 Foo *foo2 = new Foo(new FileLogger());
 ```
 
-So you can use a container to keep them for you:
+So you can use the resolver to keep them for you:
 
 ```cpp
 /* Bootstrap code */
-ioc::Container::Register<ILogger>(new FileLogger());
+ioc::Resolver::Register<ILogger>(new FileLogger());
 /* Application code */
-Foo *foo1 = new Foo(ioc::Container::Resolve<ILogger>());
+Foo *foo1 = new Foo(ioc::Resolver::Resolve<ILogger>());
 ...
-Foo *foo2 = new Foo(ioc::Container::Resolve<ILogger>());
+Foo *foo2 = new Foo(ioc::Resolver::Resolve<ILogger>());
 ```
 
-You can also use the container as a service locator, which means that a class uses a container instance to retrieve the dependencies itself:
+You can also use it as a service locator, which means that a class uses a resolver instance to retrieve the dependencies itself:
 
 ```cpp
 class Foo {
@@ -89,7 +89,7 @@ private:
     ILogger *logger;
 public:
     Foo() {
-        logger = ioc::Container::Resolve<ILogger>();
+        logger = ioc::Resolver::Resolve<ILogger>();
     }
     void doSomethig() {
         /* does something */
@@ -98,11 +98,11 @@ public:
 }
 
 /* Bootstrap code */
-ioc::Container::Register<ILogger>(new FileLogger());
+ioc::Resolver::Register<ILogger>(new FileLogger());
 /* Application code */
 Foo *foo1 = new Foo();
 ...
 Foo *foo2 = new Foo();
 ```
 
-Check out the container_test.cpp for a complete example implementation.
+Check out the resolver_test.cpp for a complete example implementation of the two use cases.

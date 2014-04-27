@@ -1,11 +1,14 @@
-all: container_test
+CXXFLAGS = -Wall -O2
 
-container_test: container
-	$(CXX) -Wall -O2 -o container_test.o -c container_test.cpp
-	$(CXX) -Wall -O2 -o container_test container_test.o container.o
+all: resolver_test
 
-container:
-	$(CXX) -Wall -O2 -o container.o -c container.cpp
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+test: resolver_test
+	./resolver_test
+
+resolver_test: resolver.o
 
 clean:
-	rm -rf container.o container_test.o container_test container_test.exe
+	rm -rf resolver.o resolver_test.o resolver_test

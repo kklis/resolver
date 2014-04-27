@@ -24,7 +24,7 @@
  */
 
 #include <cassert>
-#include "container.hpp"
+#include "resolver.hpp"
 #include <iostream>
 #include <string>
 
@@ -56,7 +56,7 @@ private:
     IFooBar *foobar;
 public:
     Test() {
-        Init(Container::Resolve<IFooBar>());
+        Init(Resolver::Resolve<IFooBar>());
     }
     Test(IFooBar *fb) {
         Init(fb);
@@ -83,12 +83,12 @@ int main() {
     assert(t->getName().compare("Bar") == 0);
     delete t;
 
-    Container::Register<IFooBar>(new Foo());
+    Resolver::Register<IFooBar>(new Foo());
     t = new Test();
     assert(t->getName().compare("Foo") == 0);
     delete t;
 
-    Container::Register<IFooBar>(new Bar());
+    Resolver::Register<IFooBar>(new Bar());
     t = new Test();
     assert(t->getName().compare("Bar") == 0);
     delete t;

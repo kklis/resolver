@@ -23,10 +23,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "container.hpp"
+#include "resolver.hpp"
 
-#ifdef _IOC_CONTAINER_HPP
+#ifdef __RESOLVER_HPP_
 
-std::map<std::string, void *> ioc::Container::registeredTypes;
+std::map<std::string, void *> ioc::Resolver::registeredTypes;
 
-#endif  //_IOC_CONTAINER_HPP
+#endif  //__RESOLVER_HPP_

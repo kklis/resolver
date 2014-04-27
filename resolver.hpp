@@ -23,15 +23,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _IOC_CONTAINER_HPP
-#define _IOC_CONTAINER_HPP
+#ifndef __RESOLVER_HPP_
+#define __RESOLVER_HPP_
 
 #include <map>
 #include <string>
 #include <typeinfo>
 
 namespace ioc {
-    class Container {
+    class Resolver {
     public:
         static std::map<std::string, void *> registeredTypes;
         template<class T> static void Register(const T*);
@@ -39,12 +39,12 @@ namespace ioc {
     };
 }
 
-template<class T> void ioc::Container::Register(const T* object) {
+template<class T> void ioc::Resolver::Register(const T* object) {
     registeredTypes[typeid(T).name()] = (void *)object;
 }
 
-template<class T> T* ioc::Container::Resolve() {
+template<class T> T* ioc::Resolver::Resolve() {
     return (T *)registeredTypes[typeid(T).name()];
 }
 
-#endif  //_IOC_CONTAINER_HPP
+#endif  //__RESOLVER_HPP_
