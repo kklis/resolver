@@ -28,7 +28,7 @@ public:
 }
 ```
 
-This class is strongly tied to concrete logger instance, which means that:
+This class is strongly tied to specific logger instance, which means that:
 * it will require refactoring in case of using a different logger,
 * writng unit tests for this class will be very hard, if not impossible.
 
